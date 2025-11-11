@@ -16,28 +16,48 @@ connectDB();
 // Initialize Express app
 const app = express();
 
-// Middleware
+// ✅ Define allowed origins (Vercel + Localhost for testing)
+const allowedOrigins = [
+  'https://learnconnect-website-github-io-ekdv.vercel.app', // ✅ your Vercel frontend URL
+  'http://localhost:5173', // ✅ local dev
+];
+
+// ✅ Configure CORS middleware
 app.use(cors({
-origin: ['https://learnconnect-website-github-io-ekdv-mcww2q7je.vercel.app'], // 👈 your exact frontend URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log('❌ Blocked by CORS:', origin);
+      callback(new Error('CORS not allowed for this origin'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
+  credentials: true,
 }));
 
+// ✅ Middleware for JSON parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// ✅ Optional: Debug logger (helps verify requests hitting backend)
+app.use((req, res, next) => {
+  console.log(`➡️  ${req.method} ${req.url}`);
+  next();
+});
+
+// ✅ Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/content', contentRoutes);
 
-// Test route
+// ✅ Health check route
 app.get('/', (req, res) => {
-  res.json({ message: 'LearnConnect API is running!' });
+  res.json({ message: '✅ LearnConnect API is running!' });
 });
 
-// Error handling middleware
+// ✅ Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
@@ -47,9 +67,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
