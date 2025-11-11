@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://learnconnect-website-github-io.vercel.app'], // ✅ Replace with your actual frontend URL
+origin: ['https://learnconnect-website-github-io-ekdv-mcww2q7je.vercel.app'], // 👈 your exact frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
