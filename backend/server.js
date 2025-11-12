@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subjectRoutes from './routes/subjectRoutes.js';
 import contentRoutes from './routes/contentRoutes.js';
-import seedData from './seedData.js'; // ✅ Import the function, not execute directly
+import seedDatabase from './seedData.js'; // ✅ Safe seeder import
 
 // Load environment variables
 dotenv.config();
@@ -54,7 +54,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Optional: log requests to check if backend is hit
+// Optional: log every request
 app.use((req, res, next) => {
   console.log(`➡️  ${req.method} ${req.url}`);
   next();
@@ -82,7 +82,7 @@ app.use((err, req, res, next) => {
 });
 
 /* --------------------- ✅ Run Seeder Once --------------------- */
-seedData();
+seedDatabase();
 
 /* --------------------- ✅ Start Server --------------------- */
 const PORT = process.env.PORT || 5000;
