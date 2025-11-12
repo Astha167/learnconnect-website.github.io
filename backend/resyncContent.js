@@ -58,4 +58,4 @@ const resyncContent = async () => {
   }
 };
 
-resyncContent();
+export default resyncContent;
