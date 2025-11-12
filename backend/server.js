@@ -34,8 +34,8 @@ app.use(
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
 
-      const vercelRegex = /^https:\/\/learnconnect-website-github-io-ekdv-[a-z0-9-]+\.vercel\.app$/;
-      const mainVercel = 'https://learnconnect-website-github-io-ekdv.vercel.app';
+      const vercelRegex = /^https:\/\/learnconnect-website-github-.*\.vercel\.app$/;
+      const mainVercel = 'https://learnconnect-website-github-io.vercel.app';
 
       if (
         allowedOrigins.includes(origin) ||
