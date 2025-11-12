@@ -6,7 +6,7 @@ import connectDB from './config/db.js';
 
 dotenv.config();
 
-const addSampleContent = async () => {
+const addContent = async () => {
   try {
     await connectDB();
 
@@ -243,4 +243,4 @@ const addSampleContent = async () => {
   }
 };
 
-export default addSampleContent;
+export default addContent;
