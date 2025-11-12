@@ -6,6 +6,8 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subjectRoutes from './routes/subjectRoutes.js';
 import contentRoutes from './routes/contentRoutes.js';
+import './seedData.js';
+
 
 // Load environment variables
 dotenv.config();
