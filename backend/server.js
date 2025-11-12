@@ -2,10 +2,15 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
+
+// Routes
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subjectRoutes from './routes/subjectRoutes.js';
 import contentRoutes from './routes/contentRoutes.js';
+import adminRoutes from './routes/adminRoutes.js'; // ✅ Added admin routes
+
+// Seeder
 import seedDatabase from './seedData.js'; // ✅ Safe seeder import
 
 // Load environment variables
@@ -60,18 +65,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+/* ----------------------- ✅ ROUTES ----------------------- */
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/api/admin', adminRoutes); // ✅ Mounted admin routes here
 
-// Health check route
+/* ----------------------- ✅ HEALTH CHECK ----------------------- */
 app.get('/', (req, res) => {
   res.json({ message: '✅ LearnConnect API is running!' });
 });
 
-// Error handling middleware
+/* ----------------------- ⚠️ ERROR HANDLING ----------------------- */
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
@@ -81,10 +87,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* --------------------- ✅ Run Seeder Once --------------------- */
+/* --------------------- ✅ SEED DATABASE ONCE --------------------- */
+// ⚠️ Comment this line out after first deployment if you don’t want reseeding each time
 seedDatabase();
 
-/* --------------------- ✅ Start Server --------------------- */
+/* --------------------- 🚀 START SERVER --------------------- */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
