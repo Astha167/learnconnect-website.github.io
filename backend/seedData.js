@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Subject from './models/Subject.js';
 import Content from './models/Content.js';
@@ -37,30 +36,19 @@ const seedDatabase = async () => {
   try {
     await connectDB();
 
-    // Clear existing data
-    await Subject.deleteMany();
-    await Content.deleteMany();
+    const count = await Subject.countDocuments();
 
-    console.log('📦 Cleared existing data');
-
-    // Insert subjects
-    const createdSubjects = await Subject.insertMany(subjects);
-    console.log('✅ Subjects added successfully!');
-
-    console.log('\n📚 Created Subjects:');
-    createdSubjects.forEach((subject) => {
-      console.log(`- ${subject.name} (${subject.slug})`);
-    });
-
-    console.log('\n✨ Database seeded successfully!');
-    console.log('\n📝 Next step: Add content (PPTs and Quizzes) for each subject');
-    console.log('You can do this through the API or manually in MongoDB Atlas\n');
-
-    process.exit(0);
+    if (count === 0) {
+      await Subject.insertMany(subjects);
+      console.log('✅ Database seeded successfully!');
+      console.log('\n📚 Created Subjects:');
+      subjects.forEach((s) => console.log(`- ${s.name} (${s.slug})`));
+    } else {
+      console.log(`⚡ Database already has ${count} subjects. Skipping seeding.`);
+    }
   } catch (error) {
     console.error('❌ Error seeding database:', error);
-    process.exit(1);
   }
 };
 
-seedDatabase();
+export default seedDatabase;
