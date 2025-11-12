@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import subjectRoutes from './routes/subjectRoutes.js';
 import contentRoutes from './routes/contentRoutes.js';
-
+import seedData from './seedData.js'; // ✅ Import the function, not execute directly
 
 // Load environment variables
 dotenv.config();
@@ -81,9 +81,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
+/* --------------------- ✅ Run Seeder Once --------------------- */
+seedData();
+
+/* --------------------- ✅ Start Server --------------------- */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-import './seedData.js';
