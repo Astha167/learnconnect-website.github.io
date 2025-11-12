@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
 
   // Replace this with your admin email (same as in .env on backend)
-  const ADMIN_EMAIL = 'yourname@gmail.com';
+  const ADMIN_EMAIL = 'aksharpaaul14@gmail.com';
 
   if (!user || user.email !== ADMIN_EMAIL) {
     return (
