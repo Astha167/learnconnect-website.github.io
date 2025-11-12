@@ -1,9 +1,17 @@
 import express from 'express';
-import { incrementView, getViewedContent } from '../controllers/contentController.js';
+import {
+  getContentBySubject,
+  incrementView,
+  getViewedContent,
+} from '../controllers/contentController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
+// Public route — anyone can view subject content
+router.get('/:slug', getContentBySubject);
+
+// Private routes for view tracking
 router.post('/:id/view', protect, incrementView);
 router.get('/viewed', protect, getViewedContent);
 
