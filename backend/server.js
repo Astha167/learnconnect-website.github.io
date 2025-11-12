@@ -25,7 +25,8 @@ const app = express();
 /* ----------------------- ✅ CORS CONFIGURATION ----------------------- */
 
 const allowedOrigins = [
-  'http://localhost:5173', // local dev
+  'http://localhost:5173', 
+  'https://learnconnect-website-github-io.vercel.app'// local dev
 ];
 
 // Allow all Vercel deployments for *your* project only
