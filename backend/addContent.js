@@ -243,4 +243,4 @@ const addSampleContent = async () => {
   }
 };
 
-addSampleContent();
+export default addSampleContent;
